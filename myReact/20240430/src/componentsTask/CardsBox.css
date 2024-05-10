@@ -1,0 +1,16 @@
+.cardsField {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 25px 0px;
+}
+
+.card {
+  width: 25%;
+  border: 1px solid black;
+  margin: 15px;
+}
+
+.cardsField .boldedCardText {
+  font-weight: bold;
+}

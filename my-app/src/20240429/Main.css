@@ -1,0 +1,70 @@
+main {
+  color: gray;
+  font-size: smaller;
+}
+
+.mainAbout {
+  display: flex;
+  justify-content: space-between;
+}
+
+.mainAbout div {
+  background-color: white;
+  width: 30%;
+  padding: 10px;
+}
+
+.mainAbout div h3 {
+  color: black;
+  font-size: 20px;
+  margin: 10px 0px;
+}
+
+.contentContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: white;
+  margin: 25px 0px;
+}
+
+.bottomContent {
+  width: 60%;
+  margin: 25px;
+}
+
+.contentContainer nav {
+  width: 20%;
+  margin-right: 70px;
+}
+
+.contentContainer nav ul {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  list-style-type: none;
+  background-color: rgb(137, 137, 137);
+  height: 70%;
+  margin-right: 10px;
+}
+
+.contentContainer h2,
+.contentContainer h3 {
+  color: black;
+}
+
+.contentContainer h2 {
+  font-size: 30px;
+}
+
+.contentContainer h3 {
+  font-size: 24px;
+}
+
+a {
+  text-decoration: none;
+}
+
+nav a p {
+  color: white;
+}

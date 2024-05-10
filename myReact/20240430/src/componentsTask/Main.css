@@ -1,0 +1,22 @@
+main {
+  background-color: rgb(233, 233, 233);
+  width: 100%;
+}
+
+.mainWrapper {
+  text-align: center;
+  margin: 0 auto;
+  width: 70%;
+  color: gray;
+}
+
+.mainWrapper h2 {
+  font-weight: normal;
+}
+
+.mainWrapper p {
+  font-weight: normal;
+  font-size: smaller;
+  width: 70%;
+  margin: 0 auto;
+}

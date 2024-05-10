@@ -1,0 +1,113 @@
+.todoField {
+  background-color: rgb(241, 241, 241);
+  max-height: 500px;
+  border-radius: 10px;
+  position: relative;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+
+.taskContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border: 1px solid rgb(237, 237, 237);
+  margin: 2px;
+  padding: 10px 15px;
+  border-radius: 15px;
+  background-color: rgb(255, 255, 255);
+}
+
+.taskContainer:hover {
+  background-color: rgb(165, 229, 229);
+}
+
+.trashContainer,
+.doneButton {
+  background: none;
+  border: none;
+}
+
+.buttonContainer {
+  display: flex;
+}
+
+h3 {
+  text-align: center;
+  padding: 15px;
+}
+
+.todoField > div {
+  margin: 35px;
+}
+
+form {
+  width: 80%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  padding: 15px;
+}
+
+form > input,
+form > button {
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  border: none;
+  border-radius: 5px;
+  padding: 2px 10px;
+  margin: 5px;
+}
+
+form > button {
+  background-color: rgb(171, 171, 171);
+}
+
+form > button:hover {
+  background-color: rgb(165, 229, 229);
+}
+
+label {
+  font-size: 8px;
+}
+
+.allTasks {
+  height: 350px;
+  overflow-y: scroll;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.doneTask {
+  text-decoration: line-through;
+}
+
+.trash {
+  color: red;
+}
+
+.checkMark {
+  color: green;
+}
+
+.shownEdit {
+  display: block;
+}
+
+.hiddenEdit {
+  display: none;
+}

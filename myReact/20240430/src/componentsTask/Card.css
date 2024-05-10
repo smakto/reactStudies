@@ -1,0 +1,9 @@
+.card {
+  background-color: white;
+}
+
+.card h4 {
+  font-size: smaller;
+  font-weight: normal;
+  color: black;
+}

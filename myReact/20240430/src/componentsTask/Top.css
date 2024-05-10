@@ -1,0 +1,12 @@
+header {
+  text-align: center;
+  padding: 20px 0px;
+  background-image: url("https://img.freepik.com/premium-photo/dark-black-gray-blurred-gradient-nature-background-has-little-abstract-shadow-light_532332-2749.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: white;
+}
+
+header h2 {
+  font-weight: normal;
+}

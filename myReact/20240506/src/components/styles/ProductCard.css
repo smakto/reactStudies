@@ -1,0 +1,33 @@
+main {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.itemCard {
+  border: 1px solid rgb(214, 214, 214);
+  text-align: center;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: gainsboro;
+  margin: 5px;
+  border-radius: 10px;
+}
+
+.itemCard:hover {
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+h4,
+h5,
+h6 {
+  margin: 5px;
+}
+
+img {
+  width: 150px;
+  height: 150px;
+}
