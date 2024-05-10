@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function Edit({ editClass, placeholder }) {
+function Edit({ editClass, placeholder, changeName, closeForm }) {
   const [editInput, setEditInput] = useState([]);
 
   return (
@@ -16,9 +16,10 @@ function Edit({ editClass, placeholder }) {
         type="submit"
         onClick={(event) => {
           event.preventDefault();
-          console.log(editInput);
-          //   editTask - Pakeisti task pavadinimą
-          //
+
+          changeName = changeName(editInput);
+          setEditInput("");
+          closeForm = closeForm();
         }}
       >
         Edit
