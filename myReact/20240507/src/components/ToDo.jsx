@@ -3,6 +3,7 @@ import "./styles/style.css";
 import SubmitField from "./SubmitField";
 import Task from "./Task";
 import Edit from "./Edit";
+import useSearch from "./useSearch";
 
 function ToDoApp() {
   const [taskList, setNewList] = useState([]);
@@ -31,10 +32,11 @@ function ToDoApp() {
 
   function changeStatus(idChange) {
     if (taskList.length > 0) {
-      for (let i = 0; i < taskList.length; i++) {
-        if (taskList[i].taskId === idChange)
-          taskList[i].done = !taskList[i].done;
-      }
+      taskList.forEach((items) => {
+        if (items.taskId === idChange) {
+          items.done = !items.done;
+        }
+      });
     }
 
     setNewList([...taskList]);
@@ -48,32 +50,36 @@ function ToDoApp() {
     let result = taskList.find((items) => items.taskId === id);
     setPlaceholder(result.name);
     setID(id);
-    console.log("result", id, result);
   }
 
   function changeName(newName) {
-    for (let i = 0; i < taskList.length; i++) {
-      if (taskList[i].taskId === nameID) taskList[i].name = newName;
-    }
+    taskList.forEach((items) => {
+      if (items.taskId === nameID) {
+        items.name = newName;
+      }
+    });
     setNewList([...taskList]);
   }
 
   return (
     <div>
+      {" "}
       <h3>You have {taskList.length} tasks</h3>
       <div className="allTasks">
         {taskList.map((tasks, index) => {
           return (
-            <Task
-              key={index}
-              taskId={tasks.taskId}
-              taskName={tasks.name}
-              handleDelete={handleDelete}
-              handleChange={changeStatus}
-              handleEdit={handleEdit}
-              editPlaceholder={setEditPlaceholder}
-              doneStatus={tasks.done ? "doneTask" : "false"}
-            />
+            <>
+              <Task
+                key={index}
+                taskId={tasks.taskId}
+                taskName={tasks.name}
+                handleDelete={handleDelete}
+                handleChange={changeStatus}
+                handleEdit={handleEdit}
+                editPlaceholder={setEditPlaceholder}
+                doneStatus={tasks.done ? "doneTask" : "false"}
+              />
+            </>
           );
         })}
       </div>
@@ -88,10 +94,24 @@ function ToDoApp() {
         changeName={changeName}
         closeForm={handleEdit}
       />
+      <SearchField arr={taskList} />
     </div>
   );
 }
 
-export default ToDoApp;
+function SearchField({ arr }) {
+  const [list, listevent] = useSearch(arr);
+  {
+    console.log(list);
+  }
+  return (
+    <>
+      <input type="text" onChange={listevent} />
+      {list.map((item, index) => (
+        <div key={index}>{item.name}</div>
+      ))}
+    </>
+  );
+}
 
-/// Atidarius changeForm reikia, kad čia būtų ID.
+export default ToDoApp;
