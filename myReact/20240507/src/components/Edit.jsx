@@ -6,6 +6,7 @@ function Edit({ editClass, placeholder, changeName, closeForm }) {
   return (
     <form className={editClass}>
       <input
+        className="editInput"
         type="text"
         placeholder={placeholder}
         onChange={(e) => {
@@ -16,10 +17,9 @@ function Edit({ editClass, placeholder, changeName, closeForm }) {
         type="submit"
         onClick={(event) => {
           event.preventDefault();
-
-          changeName = changeName(editInput);
-          setEditInput("");
-          closeForm = closeForm();
+          changeName(editInput);
+          document.querySelector(".editInput").value = "";
+          closeForm();
         }}
       >
         Edit

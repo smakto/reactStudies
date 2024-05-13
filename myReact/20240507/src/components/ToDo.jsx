@@ -8,7 +8,6 @@ function ToDoApp() {
   const [taskList, setNewList] = useState([]);
   const [formClass, setFormClass] = useState("hiddenEdit");
   const [editPlaceholder, setPlaceholder] = useState("");
-
   const [nameID, setID] = useState("");
 
   useEffect(() => {
@@ -29,6 +28,7 @@ function ToDoApp() {
   function handleDelete(ID) {
     setNewList(taskList.filter((tasks) => tasks.taskId != ID));
   }
+
   function changeStatus(idChange) {
     if (taskList.length > 0) {
       for (let i = 0; i < taskList.length; i++) {
