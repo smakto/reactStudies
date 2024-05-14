@@ -1,0 +1,14 @@
+header {
+  width: 100%;
+  background-color: rgb(230, 230, 230);
+}
+
+header nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+header nav p {
+  margin: 20px 50px;
+}

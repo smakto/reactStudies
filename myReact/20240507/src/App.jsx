@@ -14,5 +14,7 @@ function App() {
     </main>
   );
 }
+/// Import link from react router dom
+/// Veliau <Link to={"/"}> Text </Link>
 
 export default App;
