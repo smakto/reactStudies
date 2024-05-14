@@ -1,9 +1,7 @@
-// (kol kas propsų nepriima, viskas statiškai)
 import "../styles/navigation.css";
-
 import { Link } from "react-router-dom";
 
-function Navigation() {
+export function Navigation() {
   return (
     <header>
       <nav>
@@ -19,5 +17,3 @@ function Navigation() {
     </header>
   );
 }
-
-export default Navigation;
