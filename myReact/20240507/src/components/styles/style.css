@@ -111,3 +111,12 @@ label {
 .hiddenEdit {
   display: none;
 }
+
+.searchDiv {
+  margin: 20px;
+}
+
+.searchDiv input,
+.searchButton {
+  width: 100%;
+}

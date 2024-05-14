@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export default function useSearch(initValue) {
+export function useSearch(initValue) {
   const [inputValue, setInputValue] = useState("");
   const [myList, setMyList] = useState(initValue);
 
@@ -12,5 +12,5 @@ export default function useSearch(initValue) {
     setInputValue(e.target.value);
   }
 
-  return [myList, inputValue, setInputEventValue];
+  return [myList, setInputEventValue];
 }

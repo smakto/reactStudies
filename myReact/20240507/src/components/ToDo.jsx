@@ -3,13 +3,15 @@ import "./styles/style.css";
 import SubmitField from "./SubmitField";
 import Task from "./Task";
 import Edit from "./Edit";
-import useSearch from "./useSearch";
+import { useSearch } from "./useSearch";
 
 function ToDoApp() {
   const [taskList, setNewList] = useState([]);
   const [formClass, setFormClass] = useState("hiddenEdit");
   const [editPlaceholder, setPlaceholder] = useState("");
   const [nameID, setID] = useState("");
+
+  const [list, handleInputChange] = useSearch(taskList);
 
   useEffect(() => {
     const storedData = JSON.parse(localStorage.getItem("userData"));
@@ -63,23 +65,20 @@ function ToDoApp() {
 
   return (
     <div>
-      {" "}
       <h3>You have {taskList.length} tasks</h3>
       <div className="allTasks">
-        {taskList.map((tasks, index) => {
+        {list.map((task) => {
           return (
-            <>
-              <Task
-                key={index}
-                taskId={tasks.taskId}
-                taskName={tasks.name}
-                handleDelete={handleDelete}
-                handleChange={changeStatus}
-                handleEdit={handleEdit}
-                editPlaceholder={setEditPlaceholder}
-                doneStatus={tasks.done ? "doneTask" : "false"}
-              />
-            </>
+            <Task
+              key={task.taskId}
+              taskId={task.taskId}
+              taskName={task.name}
+              handleDelete={handleDelete}
+              handleChange={changeStatus}
+              handleEdit={handleEdit}
+              editPlaceholder={setEditPlaceholder}
+              doneStatus={task.done ? "doneTask" : "false"}
+            />
           );
         })}
       </div>
@@ -94,23 +93,25 @@ function ToDoApp() {
         changeName={changeName}
         closeForm={handleEdit}
       />
-      <SearchField arr={taskList} />
+      <SearchField handleInputChange={handleInputChange} />
     </div>
   );
 }
 
-function SearchField({ arr }) {
-  const [list, listevent] = useSearch(arr);
-  {
-    console.log(list);
-  }
+function SearchField({ handleInputChange }) {
   return (
-    <>
-      <input type="text" onChange={listevent} />
-      {list.map((item, index) => (
-        <div key={index}>{item.name}</div>
-      ))}
-    </>
+    <div className="searchDiv">
+      <input type="text" onChange={handleInputChange} placeholder="Search" />
+      <button
+        className="searchButton"
+        type="submit"
+        onClick={(e) => {
+          e.preventDefault();
+        }}
+      >
+        Search
+      </button>
+    </div>
   );
 }
 
