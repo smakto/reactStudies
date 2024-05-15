@@ -1,25 +1,20 @@
 import "../styles/add.css";
 import { Button } from "../components/Button";
 import { useEffect, useState } from "react";
+import { useOrdersData } from "../hooks/getOrdersData";
 
 export function Add() {
-  const [ordersList, setOrders] = useState([]);
+  const [ordersList, setOrders] = useOrdersData();
+
+  const [orderData, setNewOrderData] = useState(null);
 
   const [orderID, setNewID] = useState(null);
   const [peopleCount, setNewCount] = useState(null);
   const [checkSum, setNewSum] = useState(null);
 
-  const [orderData, setNewOrderData] = useState(null);
-
   useEffect(() => {
-    if (ordersList.length > 0)
-      localStorage.setItem("orders", JSON.stringify(ordersList));
+    localStorage.setItem("orders", JSON.stringify(ordersList));
   }, [ordersList]);
-
-  useEffect(() => {
-    let storedData = JSON.parse(localStorage.getItem("orders"));
-    storedData ? setOrders(storedData) : setOrders([]);
-  }, []);
 
   useEffect(() => {
     setNewOrderData({
@@ -38,6 +33,7 @@ export function Add() {
             ordersList.length > 0
               ? setOrders([...ordersList, orderData])
               : setOrders([orderData]);
+            document.querySelectorAll("input").forEach.value = "";
           }}
         >
           <FormInput name="id" placeholder="Enter ID" setNewData={setNewID} />

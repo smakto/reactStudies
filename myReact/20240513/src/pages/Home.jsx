@@ -1,22 +1,12 @@
-import { useState, useEffect } from "react";
+// import { useState, useEffect } from "react";
+import { Table } from "../components/Table";
 
 export function Home() {
-  const [currentOrders, setCurrentOrders] = useState([]);
-
-  useEffect(() => {
-    let storedData = JSON.parse(localStorage.getItem("orders"));
-    storedData ? setCurrentOrders(storedData) : setCurrentOrders([]);
-  }, []);
-
-  return (
-    <main>
-      {currentOrders.map((items) => {
-        return (
-          <div
-            key={items.id}
-          >{`Order ID: ${items.id}. Headcount: ${items.peopleCount}. Total order sum ${items.checkSum}`}</div>
-        );
-      })}
-    </main>
-  );
+  return <Table />;
 }
+
+// Pabandyti apsirašyti tą patį projektą su nauja react router struktūra (Iš dokumentacijos)
+// https://reactrouter.com/en/main/start/tutorial
+
+// Prisidėti dar vieną page'ą kuris atvaizduotų vieno orderio informaciją.
+// Turėtų būti sukurtas atskiras routas jam naudojant kintamajį URL'e

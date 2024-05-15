@@ -1,0 +1,19 @@
+table {
+  border: 1px solid black;
+  margin: 0 auto;
+}
+
+table,
+th,
+td {
+  border: 1px solid black;
+  text-align: center;
+}
+
+.delConfirmationON {
+  display: table-row;
+}
+
+.delConfirmationOFF {
+  display: none;
+}

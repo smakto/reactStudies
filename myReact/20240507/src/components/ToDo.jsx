@@ -15,7 +15,7 @@ function ToDoApp() {
 
   useEffect(() => {
     const storedData = JSON.parse(localStorage.getItem("userData"));
-    if (storedData.length > 0) {
+    if (storedData && storedData.length > 0) {
       setNewList(storedData);
     }
   }, []);
