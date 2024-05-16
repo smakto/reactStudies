@@ -5,9 +5,7 @@ import { useOrdersData } from "../hooks/getOrdersData";
 
 export function Add() {
   const [ordersList, setOrders] = useOrdersData();
-
   const [orderData, setNewOrderData] = useState(null);
-
   const [orderID, setNewID] = useState(null);
   const [peopleCount, setNewCount] = useState(null);
   const [checkSum, setNewSum] = useState(null);

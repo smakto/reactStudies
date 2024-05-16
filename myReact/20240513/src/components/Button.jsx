@@ -1,3 +1,7 @@
-export function Button({ type, text }) {
-  return <button type={type}>{text}</button>;
+export function Button({ type, text, clickEvent }) {
+  return (
+    <button type={type} onClick={clickEvent}>
+      {text}
+    </button>
+  );
 }
