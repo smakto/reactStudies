@@ -8,5 +8,9 @@ export function useOrdersData() {
     if (storedData && storedData.length) setOrders(storedData);
   }, []);
 
+  useEffect(() => {
+    localStorage.setItem("orders", JSON.stringify(ordersList));
+  }, [ordersList]);
+
   return [ordersList, setOrders];
 }

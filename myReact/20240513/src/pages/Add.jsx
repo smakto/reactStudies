@@ -13,10 +13,6 @@ export function Add() {
   const [checkSum, setNewSum] = useState(null);
 
   useEffect(() => {
-    localStorage.setItem("orders", JSON.stringify(ordersList));
-  }, [ordersList]);
-
-  useEffect(() => {
     setNewOrderData({
       id: orderID,
       peopleCount: peopleCount,
@@ -34,6 +30,7 @@ export function Add() {
               ? setOrders([...ordersList, orderData])
               : setOrders([orderData]);
             document.querySelectorAll("input").forEach.value = "";
+            console.log(ordersList);
           }}
         >
           <FormInput name="id" placeholder="Enter ID" setNewData={setNewID} />
