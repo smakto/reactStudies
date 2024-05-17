@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useOrdersData } from "../hooks/getOrdersData";
 import { useEffect, useState } from "react";
+import "../styles/singleOrder.css";
 
 export function OrderData() {
   const [ordersList] = useOrdersData();
