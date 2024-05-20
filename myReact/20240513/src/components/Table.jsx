@@ -67,12 +67,34 @@ export function Table() {
 }
 
 function DeleteConfirmation({ delClass, tableID, handleDelete, closeDel }) {
+  // const rowToggleON = keyframes`
+  // from{
+  //   display: none;
+  // }
+  // to {
+  //   display: table-row;
+  // }`;
+
+  // const rowToggleOFF = keyframes`
+  // from{
+  //   display: table-row;
+  // }
+  // to {
+  //   display: none;
+  // }`;
+
+  // const Row = styled.tr`
+  //   display: ${(props) => (props.primary ? "none" : "table-row")};
+  //   animation: ${(props) =>
+  //     props.primary ? `${rowToggleON} 1s` : `${rowToggleOFF} 1s`};
+  // `;
+
   return (
     <tr className={delClass}>
       <td colSpan={3}>
         Delete table: {tableID}?{" "}
-        <Button text="Delete" clickEvent={handleDelete} />
-        <Button text="Cancel" clickEvent={closeDel} />
+        <Button smallerButton text="Delete" clickEvent={handleDelete} />
+        <Button smallerButton text="Cancel" clickEvent={closeDel} />
       </td>
     </tr>
   );
