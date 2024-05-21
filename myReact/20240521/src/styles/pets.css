@@ -1,0 +1,37 @@
+.pageHead {
+  width: 70%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+h1 {
+  color: rgb(87, 87, 184);
+  font-weight: normal;
+}
+
+.petsContainer {
+  width: 80%;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.petCard {
+  text-align: center;
+  width: 30%;
+  margin: 10px;
+  border: 1px solid rgb(223, 223, 223);
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 0px;
+  font-size: smaller;
+}
+
+.petCard p {
+  margin: 10px;
+}
+
+.petCard button {
+  font-size: smaller;
+}

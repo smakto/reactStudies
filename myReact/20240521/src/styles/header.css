@@ -1,0 +1,33 @@
+header {
+  border-bottom: 1px solid rgb(216, 216, 216);
+}
+
+header div {
+  width: 80%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+header img {
+  width: 150px;
+}
+
+header nav {
+  display: flex;
+  align-items: center;
+}
+
+header nav button {
+  margin-right: 75px;
+  background: none;
+  border: none;
+  color: rgb(87, 87, 184);
+  font-weight: bold;
+  font-size: 16px;
+}
+
+header nav button:hover {
+  cursor: pointer;
+}
