@@ -11,7 +11,6 @@ export function OrderData() {
   useEffect(() => {
     let orderData = ordersList.find((items) => items.id === params.id);
     setSingleOrderData(orderData);
-    console.log("Order data", orderData);
   }, [ordersList, params]);
 
   console.log(singleOrderData);

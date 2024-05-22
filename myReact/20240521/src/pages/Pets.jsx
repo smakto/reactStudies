@@ -2,7 +2,7 @@ import "../styles/pets.css";
 import { useData } from "../hooks/useData";
 import { Button } from "../components/Button";
 import { PageHead } from "../components/PageHead";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 // import { useState, useEffect } from "react";
 
 export function Pets() {
@@ -20,7 +20,9 @@ export function Pets() {
         pageHead={"Pet List"}
         buttonField={
           <div className="pageHeadButton">
-            <Button buttonText={"Add Pet"} primary />
+            <Link to={"/add"}>
+              <Button buttonText={"Add Pet"} primary />
+            </Link>
           </div>
         }
       />
@@ -31,7 +33,7 @@ export function Pets() {
               <div key={item.id} className="petCard">
                 <h4>{item.name}</h4>
                 <p className="petDob">
-                  Born: {new Date(item.dob).getFullYear()}
+                  Born: {new Date(item.dob).toLocaleDateString()}
                 </p>
                 <p className="ownerEmail">{item.client_email}</p>
                 <Button
