@@ -14,5 +14,17 @@ export function useData(url) {
     retrieveData();
   }, [url]);
 
-  return dataSet;
+  function deleteByID(id) {
+    dataSet.map((item) => {
+      if (item.id === id) {
+        item.archived = 1;
+      }
+    });
+    setNewDataset([...dataSet]);
+  }
+
+  return { dataSet, deleteByID };
+
+  /// Include delete.
+  /// Return { dataSet, deleteData, updateData...}
 }
