@@ -1,7 +1,21 @@
 .petLogContainer {
+  width: 80%;
   margin: 0 auto;
-  width: 30%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.petLogCard {
   text-align: center;
-  border: 1px solid rgb(223, 223, 223);
+  width: 30%;
+  margin: 10px;
+  border: 1px solid rgb(203, 203, 203);
   box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 0px;
+  font-size: smaller;
+}
+
+.petLogCard h4:first-of-type {
+  padding: 10px;
+  border-bottom: 1px dotted rgb(223, 223, 223);
 }

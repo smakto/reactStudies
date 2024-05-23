@@ -30,29 +30,43 @@ export function Pets() {
         {dataSet.map((item) => {
           if (item.archived != 1)
             return (
-              <div key={item.id} className="petCard">
-                <h4>{item.name}</h4>
-                <p className="petDob">
-                  Born: {new Date(item.dob).toLocaleDateString()}
-                </p>
-                <p className="ownerEmail">{item.client_email}</p>
-                <Button
-                  primary
-                  buttonText={"VIEW LOG"}
-                  clickFunction={() => {
-                    goToLog(item.id);
-                  }}
-                ></Button>{" "}
-                <Button
-                  buttonText={"DELETE"}
-                  clickFunction={() => {
-                    deletePet(item.id);
-                  }}
-                ></Button>
-              </div>
+              <>
+                <PetCard
+                  key={item.id}
+                  id={item.id}
+                  name={item.name}
+                  dob={item.dob}
+                  email={item.client_email}
+                  clickDel={deletePet}
+                  clickView={goToLog}
+                />
+              </>
             );
         })}
       </div>
     </>
+  );
+}
+
+function PetCard({ id, name, dob, email, clickDel, clickView }) {
+  return (
+    <div className="petCard">
+      <h4>{name}</h4>
+      <p className="petDob">Born: {new Date(dob).toLocaleDateString()}</p>
+      <p className="ownerEmail">{email}</p>
+      <Button
+        primary
+        buttonText={"VIEW LOG"}
+        clickFunction={() => {
+          clickView(id);
+        }}
+      />
+      <Button
+        buttonText={"DELETE"}
+        clickFunction={() => {
+          clickDel(id);
+        }}
+      />
+    </div>
   );
 }

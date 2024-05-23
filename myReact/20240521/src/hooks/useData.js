@@ -6,7 +6,7 @@ export function useData(url) {
   useEffect(() => {
     async function retrieveData() {
       const response = await fetch(
-        `https://glittery-dull-snickerdoodle.glitch.me/v1/${url}`
+        `https://equable-mire-elderberry.glitch.me/v1/${url}`
       );
       const result = await response.json();
       setNewDataset(result);
@@ -23,7 +23,17 @@ export function useData(url) {
     setNewDataset([...dataSet]);
   }
 
-  return { dataSet, deleteByID };
+  function addData(newData) {
+    fetch(`https://equable-mire-elderberry.glitch.me/v1/${url}`, {
+      method: "POST",
+      body: JSON.stringify(newData),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    });
+  }
+
+  return { dataSet, deleteByID, addData };
 
   /// Include delete.
   /// Return { dataSet, deleteData, updateData...}
