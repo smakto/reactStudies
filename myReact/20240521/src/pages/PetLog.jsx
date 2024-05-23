@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useData } from "../hooks/useData";
+import { useToggle } from "../hooks/buttonToggle";
 // import { useEffect, useState } from "react";
 import { PageHead } from "../components/PageHead";
 import "../styles/petLog.css";
@@ -13,13 +14,8 @@ export function PetLog() {
   const [logShow, setLogShow] = useState(true);
   const [prscShow, setprscShow] = useState(true);
 
-  function buttonToggleLog() {
-    setLogShow(logShow ? false : true);
-  }
-
-  function buttonTogglePrsc() {
-    setprscShow(prscShow ? false : true);
-  }
+  const [toggleLog] = useToggle(logShow, setLogShow);
+  const [togglePrsc] = useToggle(prscShow, setprscShow);
 
   return (
     <main>
@@ -34,17 +30,17 @@ export function PetLog() {
               </div>
             }
           />
-          <div>
+          <div className="displayButtons">
             <p>Display:</p>
             <Button
               primary={logShow}
               buttonText={"LOGS"}
-              clickFunction={buttonToggleLog}
+              clickFunction={toggleLog}
             />
             <Button
               primary={prscShow}
               buttonText={"PRESCRIPTIONS"}
-              clickFunction={buttonTogglePrsc}
+              clickFunction={togglePrsc}
             />
           </div>
         </>
