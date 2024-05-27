@@ -4,10 +4,11 @@ import App from "./App.jsx";
 import { Pets } from "./pages/Pets";
 import { Medications } from "./pages/Medications";
 import { PetLog } from "./pages/PetLog";
-import { AddPet } from "./pages/Add";
+import { AddPet } from "./pages/AddPet";
 import "./index.css";
 import { Navigate } from "react-router-dom";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { AddMedication } from "./pages/AddMedications.jsx";
 
 const router = createBrowserRouter([
   {
@@ -31,8 +32,12 @@ const router = createBrowserRouter([
         element: <PetLog />,
       },
       {
-        path: "/add",
+        path: "/addPet",
         element: <AddPet />,
+      },
+      {
+        path: "/addMed",
+        element: <AddMedication />,
       },
     ],
   },

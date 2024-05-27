@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 // import { useState, useEffect } from "react";
 
 export function Pets() {
-  const { dataSet, deletePet } = useData("pets");
+  const { dataSet, deleteByID } = useData("pets");
 
   const navigate = useNavigate();
 
@@ -20,7 +20,7 @@ export function Pets() {
         pageHead={"Pet List"}
         buttonField={
           <div className="pageHeadButton">
-            <Link to={"/add"}>
+            <Link to={"/addPet"}>
               <Button buttonText={"Add Pet"} primary />
             </Link>
           </div>
@@ -37,7 +37,7 @@ export function Pets() {
                   name={item.name}
                   dob={item.dob}
                   email={item.client_email}
-                  clickDel={deletePet}
+                  clickDel={deleteByID}
                   clickView={goToLog}
                 />
               </>

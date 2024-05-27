@@ -1,7 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useData } from "../hooks/useData";
 import { useToggle } from "../hooks/buttonToggle";
-// import { useEffect, useState } from "react";
 import { PageHead } from "../components/PageHead";
 import "../styles/petLog.css";
 import { Button } from "../components/Button";
@@ -45,8 +44,10 @@ export function PetLog() {
           </div>
         </>
       )}
-      {logShow && <LogCards logType={"logs"} />}
-      {prscShow && <LogCards logType={"prescriptions"} />}
+      <div className="petLogContainer">
+        {logShow && <LogCards logType={"logs"} />}
+        {prscShow && <LogCards logType={"prescriptions"} />}
+      </div>
     </main>
   );
 }
@@ -56,7 +57,7 @@ function LogCards({ logType }) {
   const { dataSet } = useData(`${logType}/${params.id}`);
   console.log(dataSet);
   return (
-    <div className="petLogContainer">
+    <>
       {dataSet.length > 0 && (
         <>
           {dataSet.map((item) => {
@@ -70,6 +71,6 @@ function LogCards({ logType }) {
           })}
         </>
       )}
-    </div>
+    </>
   );
 }

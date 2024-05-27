@@ -2,9 +2,10 @@ import { useData } from "../hooks/useData";
 import { Button } from "../components/Button";
 import { PageHead } from "../components/PageHead";
 import "../styles/meds.css";
+import { Link } from "react-router-dom";
 
 export function Medications() {
-  const { dataSet } = useData("meds");
+  const { dataSet } = useData("meds?limit=250");
 
   return (
     <>
@@ -12,7 +13,9 @@ export function Medications() {
         pageHead={"Medications"}
         buttonField={
           <div className="pageHeadButton">
-            <Button buttonText={"Add Medication"} primary />
+            <Link to={"/addMed"}>
+              <Button buttonText={"Add Medication"} primary />{" "}
+            </Link>
           </div>
         }
       />
