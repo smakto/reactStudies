@@ -3,14 +3,14 @@
   margin: 50px auto;
 }
 
-.petAddForm {
+.addForm {
   width: 50%;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
 }
 
-.petAddForm button {
+.addForm button {
   width: 50%;
   margin: 20px auto;
 }

@@ -3,21 +3,26 @@ import { Button } from "../components/Button";
 import "../styles/petAdd.css";
 import { useData } from "../hooks/useData";
 import { Input } from "../components/Input";
+import { useParams } from "react-router-dom";
 
-export function AddMedication() {
-  const { addData } = useData("meds");
+export function AddLog() {
+  const params = useParams("");
+  const { addData } = useData(`logs`);
 
-  const [nameInput, setName] = useState("");
   const [descrInput, setDescr] = useState("");
+  const [statusInput, setStatus] = useState("");
+
+  console.log(params.id);
 
   function handleChange(value, setData) {
     setData(value);
   }
 
-  function createMed() {
+  function createLog() {
     addData({
-      name: nameInput,
+      pet_id: params.id,
       description: descrInput,
+      status: statusInput,
     });
   }
 
@@ -27,25 +32,25 @@ export function AddMedication() {
         className="addForm"
         onSubmit={() => {
           event.preventDefault();
-          createMed();
+          createLog();
         }}
       >
         <Input
           type={"text"}
-          name={"medName"}
-          label={"Medication name:"}
-          handleChange={handleChange}
-          setData={setName}
-        />
-
-        <Input
-          type={"text"}
-          name={"medDescr"}
+          name={"logDescription"}
           label={"Description:"}
           handleChange={handleChange}
           setData={setDescr}
         />
-        <Button primary type="submit" buttonText={"Add Medication"} />
+
+        <Input
+          type={"text"}
+          name={"logStatus"}
+          label={"Status:"}
+          handleChange={handleChange}
+          setData={setStatus}
+        />
+        <Button primary type="submit" buttonText={"Add Log"} />
       </form>
     </div>
   );

@@ -34,7 +34,7 @@ export function AddPet() {
   return (
     <div className="addFormWrap">
       <form
-        className="petAddForm"
+        className="addForm"
         onSubmit={() => {
           event.preventDefault();
           createPet();

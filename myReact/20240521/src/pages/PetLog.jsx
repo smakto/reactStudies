@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useData } from "../hooks/useData";
 import { useToggle } from "../hooks/buttonToggle";
 import { PageHead } from "../components/PageHead";
@@ -24,8 +24,12 @@ export function PetLog() {
             pageHead={`${dataSet[0].name}: Health records`}
             buttonField={
               <div>
-                <Button primary buttonText={"ADD PRESCRIPTION"} />
-                <Button buttonText={"ADD LOG"} />
+                <Link to={`/addPrescription/${params.id}`}>
+                  <Button primary buttonText={"ADD PRESCRIPTION"} />
+                </Link>
+                <Link to={`/addLog/${params.id}`}>
+                  <Button buttonText={"ADD LOG"} />
+                </Link>
               </div>
             }
           />

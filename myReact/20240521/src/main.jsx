@@ -9,6 +9,8 @@ import "./index.css";
 import { Navigate } from "react-router-dom";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { AddMedication } from "./pages/AddMedications.jsx";
+import { AddLog } from "./pages/AddLog.jsx";
+import { AddPrescription } from "./pages/AddPrescription.jsx";
 
 const router = createBrowserRouter([
   {
@@ -38,6 +40,14 @@ const router = createBrowserRouter([
       {
         path: "/addMed",
         element: <AddMedication />,
+      },
+      {
+        path: "/addLog/:id",
+        element: <AddLog />,
+      },
+      {
+        path: "/addPrescription/:id",
+        element: <AddPrescription />,
       },
     ],
   },
