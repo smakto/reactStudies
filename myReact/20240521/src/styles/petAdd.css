@@ -18,3 +18,7 @@
 input {
   margin: 5px;
 }
+
+label {
+  margin-top: 15px;
+}

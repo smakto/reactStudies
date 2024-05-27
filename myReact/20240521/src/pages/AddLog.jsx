@@ -3,16 +3,14 @@ import { Button } from "../components/Button";
 import "../styles/petAdd.css";
 import { useData } from "../hooks/useData";
 import { Input } from "../components/Input";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export function AddLog() {
   const params = useParams("");
   const { addData } = useData(`logs`);
-
   const [descrInput, setDescr] = useState("");
   const [statusInput, setStatus] = useState("");
-
-  console.log(params.id);
+  const navigate = useNavigate();
 
   function handleChange(value, setData) {
     setData(value);
@@ -33,6 +31,7 @@ export function AddLog() {
         onSubmit={() => {
           event.preventDefault();
           createLog();
+          navigate(`/logs/${params.id}`);
         }}
       >
         <Input

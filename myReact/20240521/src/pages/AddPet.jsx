@@ -3,10 +3,11 @@ import { Button } from "../components/Button";
 import "../styles/petAdd.css";
 import { useData } from "../hooks/useData";
 import { Input } from "../components/Input";
+import { useNavigate } from "react-router-dom";
 
 export function AddPet() {
   const { addData } = useData("pets");
-
+  const navigate = useNavigate();
   const [nameInput, setName] = useState("");
   const [dateInput, setDate] = useState("");
   const [emailInput, setEmail] = useState("");
@@ -38,6 +39,7 @@ export function AddPet() {
         onSubmit={() => {
           event.preventDefault();
           createPet();
+          navigate("/");
         }}
       >
         <Input

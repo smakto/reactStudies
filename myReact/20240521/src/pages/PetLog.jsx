@@ -5,34 +5,42 @@ import { PageHead } from "../components/PageHead";
 import "../styles/petLog.css";
 import { Button } from "../components/Button";
 import { useState } from "react";
+import { useName } from "../hooks/getName";
 
 export function PetLog() {
   const params = useParams();
   const { dataSet } = useData(`logs/${params.id}`);
-
+  const { petName } = useName(params.id);
   const [logShow, setLogShow] = useState(true);
   const [prscShow, setprscShow] = useState(true);
 
   const [toggleLog] = useToggle(logShow, setLogShow);
   const [togglePrsc] = useToggle(prscShow, setprscShow);
 
+  if (petName.length > 0) {
+    console.log("PetLog", petName[0]);
+  }
+
   return (
     <main>
+      {petName.length > 0 && (
+        <PageHead
+          pageHead={`${petName[0].name}: Health records`}
+          buttonField={
+            <div>
+              <Link to={`/addPrescription/${params.id}`}>
+                <Button primary buttonText={"ADD PRESCRIPTION"} />
+              </Link>
+              <Link to={`/addLog/${params.id}`}>
+                <Button buttonText={"ADD LOG"} />
+              </Link>
+            </div>
+          }
+        />
+      )}
+
       {dataSet.length > 0 && (
         <>
-          <PageHead
-            pageHead={`${dataSet[0].name}: Health records`}
-            buttonField={
-              <div>
-                <Link to={`/addPrescription/${params.id}`}>
-                  <Button primary buttonText={"ADD PRESCRIPTION"} />
-                </Link>
-                <Link to={`/addLog/${params.id}`}>
-                  <Button buttonText={"ADD LOG"} />
-                </Link>
-              </div>
-            }
-          />
           <div className="displayButtons">
             <p>Display:</p>
             <Button
@@ -59,7 +67,7 @@ export function PetLog() {
 function LogCards({ logType }) {
   const params = useParams();
   const { dataSet } = useData(`${logType}/${params.id}`);
-  console.log(dataSet);
+
   return (
     <>
       {dataSet.length > 0 && (

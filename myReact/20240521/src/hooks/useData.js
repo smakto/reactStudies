@@ -34,7 +34,4 @@ export function useData(url) {
   }
 
   return { dataSet, deleteByID, addData };
-
-  /// Include delete.
-  /// Return { dataSet, deleteData, updateData...}
 }

@@ -3,17 +3,16 @@ import { Button } from "../components/Button";
 import "../styles/petAdd.css";
 import { useData } from "../hooks/useData";
 import { Input } from "../components/Input";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export function AddPrescription() {
   const params = useParams("");
   const { addData } = useData(`prescriptions`);
   const { dataSet } = useData(`meds`);
-
   const [comment, setComment] = useState("");
-
   const [medName, setMedName] = useState("");
   const [medId, setMedId] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (medName) {
@@ -41,6 +40,7 @@ export function AddPrescription() {
         onSubmit={() => {
           event.preventDefault();
           createLog();
+          navigate(`/logs/${params.id}`);
         }}
       >
         <select

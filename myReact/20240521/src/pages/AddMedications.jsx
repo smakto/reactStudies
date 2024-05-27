@@ -3,10 +3,11 @@ import { Button } from "../components/Button";
 import "../styles/petAdd.css";
 import { useData } from "../hooks/useData";
 import { Input } from "../components/Input";
+import { useNavigate } from "react-router-dom";
 
 export function AddMedication() {
   const { addData } = useData("meds");
-
+  const navigate = useNavigate();
   const [nameInput, setName] = useState("");
   const [descrInput, setDescr] = useState("");
 
@@ -28,6 +29,7 @@ export function AddMedication() {
         onSubmit={() => {
           event.preventDefault();
           createMed();
+          navigate("/medications");
         }}
       >
         <Input

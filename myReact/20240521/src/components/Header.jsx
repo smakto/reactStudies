@@ -5,10 +5,12 @@ export function Header() {
   return (
     <header>
       <div className="headerWrapper">
-        <img
-          src="https://cdn.dribbble.com/users/1572563/screenshots/3537417/media/6d047578c054e3bdd5702effe3f515c2.jpg?resize=400x300&vertical=center"
-          alt="logo"
-        ></img>
+        <Link to={"/"}>
+          <img
+            src="https://cdn.dribbble.com/users/1572563/screenshots/3537417/media/6d047578c054e3bdd5702effe3f515c2.jpg?resize=400x300&vertical=center"
+            alt="logo"
+          ></img>
+        </Link>
         <Navigation />
       </div>
     </header>

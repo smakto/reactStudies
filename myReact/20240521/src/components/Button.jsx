@@ -19,7 +19,6 @@ const StyledButton = styled.button`
   border-radius: 3px;
   margin: 5px;
   &:hover {
-    box-shadow: rgba(3, 102, 214, 0.3) 0px 0px 0px 2px;
     animation: ${enlarge} 0.1s linear forwards;
   }
 `;
