@@ -17,10 +17,6 @@ export function PetLog() {
   const [toggleLog] = useToggle(logShow, setLogShow);
   const [togglePrsc] = useToggle(prscShow, setprscShow);
 
-  if (petName.length > 0) {
-    console.log("PetLog", petName[0]);
-  }
-
   return (
     <main>
       {petName.length > 0 && (

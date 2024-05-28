@@ -11,9 +11,10 @@ to {
 
 const StyledButton = styled.button`
   background-color: ${(props) =>
-    props.primary ? "rgb(87, 87, 184)" : "white"};
-  color: ${(props) => (props.primary ? "white" : "rgb(87, 87, 184)")};
-  border: ${(props) => (props.primary ? "none" : "1px solid rgb(87, 87, 184)")};
+    props.primary ? "rgb(252, 158, 36)" : "white"};
+  color: ${(props) => (props.primary ? "white" : "rgb(252, 158, 36)")};
+  border: ${(props) =>
+    props.primary ? "none" : "1px solid rgb(252, 158, 36)"};
   padding: 5px 10px;
   font-weight: bold;
   border-radius: 3px;

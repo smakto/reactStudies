@@ -21,12 +21,13 @@ export function Medications() {
       />
       <div className="medsContainer">
         {dataSet.map((item) => {
-          return (
-            <div className="medCard" key={item.id}>
-              <h3>{item.name}</h3>
-              <p>Description: {item.description}</p>
-            </div>
-          );
+          if (item.name && item.description)
+            return (
+              <div className="medCard" key={item.id}>
+                <h3>{item.name}</h3>
+                <p>Description: {item.description}</p>
+              </div>
+            );
         })}
       </div>
     </>

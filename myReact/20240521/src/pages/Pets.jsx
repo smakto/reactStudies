@@ -30,17 +30,15 @@ export function Pets() {
         {dataSet.map((item) => {
           if (item.archived != 1)
             return (
-              <>
-                <PetCard
-                  key={item.id}
-                  id={item.id}
-                  name={item.name}
-                  dob={item.dob}
-                  email={item.client_email}
-                  clickDel={deleteByID}
-                  clickView={goToLog}
-                />
-              </>
+              <PetCard
+                key={item.id}
+                id={item.id}
+                name={item.name}
+                dob={item.dob}
+                email={item.client_email}
+                clickDel={deleteByID}
+                clickView={goToLog}
+              />
             );
         })}
       </div>
