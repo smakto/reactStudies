@@ -3,16 +3,22 @@ import { useData } from "../hooks/useData";
 import { Button } from "../components/Button";
 import { PageHead } from "../components/PageHead";
 import { Link, useNavigate } from "react-router-dom";
-// import { useState, useEffect } from "react";
+import { SearchField } from "../components/SearchField";
+import { useSearch } from "../hooks/useSearch";
+
+function searchFunct(element, inputValue) {
+  return element.name.toLowerCase().includes(inputValue.toLowerCase());
+}
 
 export function Pets() {
   const { dataSet, deleteByID } = useData("pets");
-
   const navigate = useNavigate();
 
   function goToLog(id) {
     navigate(`/logs/${id}`);
   }
+
+  const [data, handleInput] = useSearch(dataSet, searchFunct);
 
   return (
     <>
@@ -26,8 +32,9 @@ export function Pets() {
           </div>
         }
       />
+      <SearchField handleInput={handleInput} />
       <div className="petsContainer">
-        {dataSet.map((item) => {
+        {data.map((item) => {
           if (item.archived != 1)
             return (
               <PetCard

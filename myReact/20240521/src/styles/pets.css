@@ -36,3 +36,12 @@ h1 {
 .petCard button {
   font-size: smaller;
 }
+
+.searchDiv {
+  width: 100%;
+  text-align: center;
+}
+
+.searchDiv input {
+  margin: 15px;
+}

@@ -6,16 +6,34 @@ import "../styles/petLog.css";
 import { Button } from "../components/Button";
 import { useState } from "react";
 import { useName } from "../hooks/getName";
+import { SearchField } from "../components/SearchField";
+import { useSearch } from "../hooks/useSearch";
+
+function searchFunct(element, inputValue) {
+  // Logs - description & status;
+  // Prescriptions - description & name
+  if (!element.description && !element.status && !element.name) {
+    return false;
+  }
+  return (
+    element.description.toLowerCase().includes(inputValue.toLowerCase()) ||
+    element.status.toLowerCase().includes(inputValue.toLowerCase()) ||
+    element.name.toLowerCase().includes(inputValue.toLowerCase())
+  );
+}
 
 export function PetLog() {
   const params = useParams();
   const { dataSet } = useData(`logs/${params.id}`);
   const { petName } = useName(params.id);
+
   const [logShow, setLogShow] = useState(true);
   const [prscShow, setprscShow] = useState(true);
 
   const [toggleLog] = useToggle(logShow, setLogShow);
   const [togglePrsc] = useToggle(prscShow, setprscShow);
+
+  // const [data, handleInput] = useSearch(dataSet, searchFunct);
 
   return (
     <main>
@@ -34,6 +52,7 @@ export function PetLog() {
           }
         />
       )}
+      {/* <SearchField handleInput={handleInput} /> */}
 
       {dataSet.length > 0 && (
         <>
@@ -68,9 +87,9 @@ function LogCards({ logType }) {
     <>
       {dataSet.length > 0 && (
         <>
-          {dataSet.map((item) => {
+          {dataSet.map((item, index) => {
             return (
-              <div key={item.id} className="petLogCard">
+              <div key={index} className="petLogCard">
                 <h4>{logType === "logs" ? item.description : item.name}</h4>
                 <h4>{logType === "logs" ? item.status : item.description}</h4>
                 {logType === "prescriptions" && <h5>{item.timestamp}</h5>}
