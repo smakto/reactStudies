@@ -12,7 +12,7 @@ import { useSearch } from "../hooks/useSearch";
 function searchFunct(element, inputValue) {
   // Logs - description & status;
   // Prescriptions - description & name
-  if (!element.description && !element.status && !element.name) {
+  if ((!element.description && !element.status) || !element.name) {
     return false;
   }
   return (
@@ -25,6 +25,15 @@ function searchFunct(element, inputValue) {
 export function PetLog() {
   const params = useParams();
   const { dataSet } = useData(`logs/${params.id}`);
+
+  // const { logsDataSet: dataSet } = useData(`logs/${params.id}`); // logsDataSet: dataSet - kaip atskiras name
+  // const { logsDataSet: dataSet } = useData(`logs/${params.id}`);
+  // console.log(logsDataSet);
+
+  const prescriptionDataSet = useData(`prescriptions/${params.id}`);
+  console.log(prescriptionDataSet.dataSet);
+  // perscriptionDataSet.dataSet; /// tas pats kas   const { dataSet } = useData(`perscriptions/${params.id}`);
+
   const { petName } = useName(params.id);
 
   const [logShow, setLogShow] = useState(true);
@@ -52,7 +61,6 @@ export function PetLog() {
           }
         />
       )}
-      {/* <SearchField handleInput={handleInput} /> */}
 
       {dataSet.length > 0 && (
         <>
@@ -82,12 +90,15 @@ export function PetLog() {
 function LogCards({ logType }) {
   const params = useParams();
   const { dataSet } = useData(`${logType}/${params.id}`);
+  const [data, handleInput] = useSearch(dataSet, searchFunct);
 
   return (
     <>
+      <SearchField handleInput={handleInput} />
+
       {dataSet.length > 0 && (
         <>
-          {dataSet.map((item, index) => {
+          {data.map((item, index) => {
             return (
               <div key={index} className="petLogCard">
                 <h4>{logType === "logs" ? item.description : item.name}</h4>
@@ -101,3 +112,8 @@ function LogCards({ logType }) {
     </>
   );
 }
+
+/// Apjungti data logs ir perscriptions į vieną dataSet.
+/// Kiekvienam dataSet priskirti naują type:log/perscription
+/// Search iš bendro dataSet
+/// ToggleData pagal type
