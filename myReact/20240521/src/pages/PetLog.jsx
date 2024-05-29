@@ -4,44 +4,70 @@ import { useToggle } from "../hooks/buttonToggle";
 import { PageHead } from "../components/PageHead";
 import "../styles/petLog.css";
 import { Button } from "../components/Button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useName } from "../hooks/getName";
 import { SearchField } from "../components/SearchField";
 import { useSearch } from "../hooks/useSearch";
 
-function searchFunct(element, inputValue) {
-  // Logs - description & status;
-  // Prescriptions - description & name
-  if ((!element.description && !element.status) || !element.name) {
-    return false;
-  }
-  return (
-    element.description.toLowerCase().includes(inputValue.toLowerCase()) ||
-    element.status.toLowerCase().includes(inputValue.toLowerCase()) ||
-    element.name.toLowerCase().includes(inputValue.toLowerCase())
-  );
-}
+// function searchFunct(element, inputValue) {
+//   // Logs - description & status;
+//   // Prescriptions - description & name
+//   if ((!element.description && !element.status) || !element.name) {
+//     return false;
+//   }
+//   return (
+//     element.description.toLowerCase().includes(inputValue.toLowerCase()) ||
+//     element.status.toLowerCase().includes(inputValue.toLowerCase()) ||
+//     element.name.toLowerCase().includes(inputValue.toLowerCase())
+//   );
+// }
 
 export function PetLog() {
+  // const { logsDataSet: dataSet } = useData(`logs/${params.id}`); /// Kaip išsikviesti?
   const params = useParams();
-  const { dataSet } = useData(`logs/${params.id}`);
+  const { petName } = useName(params.id);
+  const [data, setNewData] = useState([]);
 
-  // const { logsDataSet: dataSet } = useData(`logs/${params.id}`); // logsDataSet: dataSet - kaip atskiras name
-  // const { logsDataSet: dataSet } = useData(`logs/${params.id}`);
-  // console.log(logsDataSet);
-
+  const logsDataSet = useData(`logs/${params.id}`);
   const prescriptionDataSet = useData(`prescriptions/${params.id}`);
 
-  console.log(prescriptionDataSet.dataSet);
-  // perscriptionDataSet.dataSet; /// tas pats kas   const { dataSet } = useData(`perscriptions/${params.id}`);
+  useEffect(() => {
+    logsDataSet.dataSet.map((items) => {
+      items.type = "log";
+    });
+    prescriptionDataSet.dataSet.map((items) => {
+      items.type = "prescription";
+    });
+  }, [logsDataSet.dataSet, prescriptionDataSet.dataSet]);
 
-  const { petName } = useName(params.id);
+  useEffect(() => {
+    mergeArrays();
+  }, []);
+
+  function mergeArrays() {
+    if (prescriptionDataSet.dataSet && logsDataSet.dataSet)
+      setNewData([...prescriptionDataSet.dataSet, ...logsDataSet.dataSet]);
+  }
 
   const [logShow, setLogShow] = useState(true);
   const [prscShow, setprscShow] = useState(true);
 
   const [toggleLog] = useToggle(logShow, setLogShow);
   const [togglePrsc] = useToggle(prscShow, setprscShow);
+
+  useEffect(() => {
+    if (!logShow && prscShow) {
+      setNewData([...prescriptionDataSet.dataSet]);
+    } else if (logShow && !prscShow) {
+      setNewData([...logsDataSet.dataSet]);
+    } else if (!logShow && !prscShow) {
+      setNewData([]);
+    } else if (logShow && prscShow) {
+      mergeArrays();
+    }
+  }, [logShow, prscShow]);
+
+  console.log(logShow, prscShow);
 
   // const [data, handleInput] = useSearch(dataSet, searchFunct);
 
@@ -63,7 +89,7 @@ export function PetLog() {
         />
       )}
 
-      {dataSet.length > 0 && (
+      {data.length > 0 && (
         <>
           <div className="displayButtons">
             <p>Display:</p>
@@ -81,36 +107,32 @@ export function PetLog() {
         </>
       )}
       <div className="petLogContainer">
-        {logShow && <LogCards logType={"logs"} />}
-        {prscShow && <LogCards logType={"prescriptions"} />}
+        {data.length > 0 &&
+          data.map((items) => {
+            return (
+              <LogCards
+                key={items.id}
+                logType={items.type}
+                description={items.description}
+                name={items.name}
+                status={items.status}
+                timestamp={items.timestamp}
+              />
+            );
+          })}
       </div>
     </main>
   );
 }
 
-function LogCards({ logType }) {
-  const params = useParams();
-  const { dataSet } = useData(`${logType}/${params.id}`);
-  const [data, handleInput] = useSearch(dataSet, searchFunct);
-
+function LogCards({ logType, description, name, status, timestamp }) {
   return (
-    <>
-      <SearchField handleInput={handleInput} />
-
-      {dataSet.length > 0 && (
-        <>
-          {data.map((item, index) => {
-            return (
-              <div key={index} className="petLogCard">
-                <h4>{logType === "logs" ? item.description : item.name}</h4>
-                <h4>{logType === "logs" ? item.status : item.description}</h4>
-                {logType === "prescriptions" && <h5>{item.timestamp}</h5>}
-              </div>
-            );
-          })}
-        </>
-      )}
-    </>
+    <div className="petLogCard">
+      <h4>{logType === "log" ? description : name}</h4>
+      <h4>{logType === "log" ? status : description}</h4>
+      {logType === "prescription" && <h5>{timestamp}</h5>}
+      test
+    </div>
   );
 }
 

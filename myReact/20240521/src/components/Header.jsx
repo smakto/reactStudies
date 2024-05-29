@@ -5,10 +5,9 @@ import { useEffect } from "react";
 
 export function Header() {
   const myState = useThemeContext();
-  console.log(myState);
 
   useEffect(() => {
-    document.querySelector("main").className = myState.theme;
+    document.querySelector("body").className = myState.theme;
   }, [myState]);
 
   return (
