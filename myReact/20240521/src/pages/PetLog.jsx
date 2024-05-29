@@ -31,6 +31,7 @@ export function PetLog() {
   // console.log(logsDataSet);
 
   const prescriptionDataSet = useData(`prescriptions/${params.id}`);
+
   console.log(prescriptionDataSet.dataSet);
   // perscriptionDataSet.dataSet; /// tas pats kas   const { dataSet } = useData(`perscriptions/${params.id}`);
 

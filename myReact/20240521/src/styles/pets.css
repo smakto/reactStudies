@@ -45,3 +45,8 @@ h1 {
 .searchDiv input {
   margin: 15px;
 }
+
+.themeSelector {
+  justify-content: center;
+  align-items: center;
+}
