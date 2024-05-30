@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { useName } from "../hooks/getName";
 import { SearchField } from "../components/SearchField";
 import { useSearch } from "../hooks/useSearch";
+import { useToggleLogContext } from "../contexts/ToggleLogContext";
 
 function searchFunct(element, inputValue) {
   if (!element.description && !element.status && !element.name) {
@@ -29,6 +30,9 @@ function searchFunct(element, inputValue) {
 
 export function PetLog() {
   // const { logsDataSet: dataSet } = useData(`logs/${params.id}`); /// Kaip išsikviesti?
+
+  const myLogState = useToggleLogContext();
+
   const params = useParams();
   const { petName } = useName(params.id);
 
@@ -58,11 +62,11 @@ export function PetLog() {
     }
   }, [logsDataSet.loaded, prescriptionDataSet.loaded]);
 
-  const [logShow, setLogShow] = useState(true);
-  const [prscShow, setprscShow] = useState(true);
+  // const [logShow, setLogShow] = useState(true);
+  // const [prscShow, setprscShow] = useState(true);
 
-  const [toggleLog] = useToggle(logShow, setLogShow);
-  const [togglePrsc] = useToggle(prscShow, setprscShow);
+  // const [toggleLog] = useToggle(logShow, setLogShow);
+  // const [togglePrsc] = useToggle(prscShow, setprscShow);
 
   useEffect(() => {
     combinedData.length > 0 &&
@@ -71,17 +75,17 @@ export function PetLog() {
           if (item.type === "log") {
             return {
               ...item,
-              hidden: logShow ? false : true,
+              hidden: !myLogState.logs,
             };
           } else if (item.type === "prescription") {
             return {
               ...item,
-              hidden: prscShow ? false : true,
+              hidden: !myLogState.prescriptions,
             };
           }
         })
       );
-  }, [logShow, prscShow]);
+  }, [myLogState.logs, myLogState.prescriptions]);
 
   const [data, handleInput] = useSearch(combinedData, searchFunct);
 
@@ -108,14 +112,24 @@ export function PetLog() {
           <div className="displayButtons">
             <p>Display:</p>
             <Button
-              primary={logShow}
+              primary={myLogState.logs}
               buttonText={"LOGS"}
-              clickFunction={toggleLog}
+              clickFunction={() => {
+                myLogState.dispatch({
+                  type: myLogState.logs ? "logsOFF" : "logsON",
+                });
+              }}
             />
             <Button
-              primary={prscShow}
+              primary={myLogState.prescriptions}
               buttonText={"PRESCRIPTIONS"}
-              clickFunction={togglePrsc}
+              clickFunction={() => {
+                myLogState.dispatch({
+                  type: myLogState.prescriptions
+                    ? "prescriptionsOFF"
+                    : "prescriptionsON",
+                });
+              }}
             />
           </div>
         </>

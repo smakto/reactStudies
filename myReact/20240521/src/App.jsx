@@ -4,15 +4,18 @@ import "./App.css";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 import { ThemeProvider } from "./contexts/ThemeContext";
+import { ToggleLogProvider } from "./contexts/ToggleLogContext";
 
 function App() {
   return (
     <ThemeProvider>
-      <main>
-        <Header />
-        <Outlet />
-        <Footer />
-      </main>
+      <ToggleLogProvider>
+        <main>
+          <Header />
+          <Outlet />
+          <Footer />
+        </main>
+      </ToggleLogProvider>
     </ThemeProvider>
   );
 }

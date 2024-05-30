@@ -11,7 +11,9 @@ header div {
 }
 
 header img {
-  width: 150px;
+  /* width: 150px; */
+  max-height: 50px;
+  padding: 25px;
 }
 
 header nav {

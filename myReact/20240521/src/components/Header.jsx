@@ -15,29 +15,21 @@ export function Header() {
       <div className="headerWrapper">
         <Link to={"/"}>
           <img
-            src="https://cdn.dribbble.com/users/1572563/screenshots/3537417/media/6d047578c054e3bdd5702effe3f515c2.jpg"
+            src="https://www.globalvetlink.com/wp-content/uploads/2019/11/petvet-logo.png"
             alt="logo"
           ></img>
         </Link>
 
         <div className="themeSelector">
           <button
+            className={`themeButton-${myState.theme}`}
             onClick={() => {
               myState.dispatch({
-                type: "LIGHT",
+                type: myState.theme === "dark" ? "LIGHT" : "DARK",
               });
             }}
           >
-            Light
-          </button>
-          <button
-            onClick={() => {
-              myState.dispatch({
-                type: "DARK",
-              });
-            }}
-          >
-            Dark
+            {myState.theme.toUpperCase()}
           </button>
         </div>
 

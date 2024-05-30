@@ -50,3 +50,21 @@ h1 {
   justify-content: center;
   align-items: center;
 }
+
+.themeButton-light {
+  font-weight: bold;
+  padding: 5px 15px;
+  color: black;
+  background-color: white;
+  border-radius: 5px;
+  border: 1px solid rgb(209, 209, 209);
+}
+
+.themeButton-dark {
+  font-weight: bold;
+  padding: 5px 15px;
+  color: rgb(255, 255, 255);
+  background-color: rgb(0, 0, 0);
+  border-radius: 5px;
+  border: 1px solid rgb(0, 0, 0);
+}
