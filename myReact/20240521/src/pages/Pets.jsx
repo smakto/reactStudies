@@ -5,6 +5,7 @@ import { PageHead } from "../components/PageHead";
 import { Link, useNavigate } from "react-router-dom";
 import { SearchField } from "../components/SearchField";
 import { useSearch } from "../hooks/useSearch";
+import { usePetNameContext } from "../contexts/PetNameContext";
 
 function searchFunct(element, inputValue) {
   return element.name.toLowerCase().includes(inputValue.toLowerCase());
@@ -54,6 +55,8 @@ export function Pets() {
 }
 
 function PetCard({ id, name, dob, email, clickDel, clickView }) {
+  const myPetNameState = usePetNameContext();
+
   return (
     <div className="petCard">
       <h4>{name}</h4>
@@ -63,6 +66,11 @@ function PetCard({ id, name, dob, email, clickDel, clickView }) {
         primary
         buttonText={"VIEW LOG"}
         clickFunction={() => {
+          myPetNameState.dispatch({
+            type: "NEWNAME",
+            newPetName: name,
+          });
+
           clickView(id);
         }}
       />

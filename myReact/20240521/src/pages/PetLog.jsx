@@ -1,14 +1,13 @@
 import { Link, useParams } from "react-router-dom";
 import { useData } from "../hooks/useData";
-import { useToggle } from "../hooks/buttonToggle";
 import { PageHead } from "../components/PageHead";
 import "../styles/petLog.css";
 import { Button } from "../components/Button";
 import { useEffect, useState } from "react";
-import { useName } from "../hooks/getName";
 import { SearchField } from "../components/SearchField";
 import { useSearch } from "../hooks/useSearch";
 import { useToggleLogContext } from "../contexts/ToggleLogContext";
+import { usePetNameContext } from "../contexts/PetNameContext";
 
 function searchFunct(element, inputValue) {
   if (!element.description && !element.status && !element.name) {
@@ -30,12 +29,10 @@ function searchFunct(element, inputValue) {
 
 export function PetLog() {
   // const { logsDataSet: dataSet } = useData(`logs/${params.id}`); /// Kaip išsikviesti?
-
+  const myPetName = usePetNameContext();
   const myLogState = useToggleLogContext();
 
   const params = useParams();
-  const { petName } = useName(params.id);
-
   const [combinedData, setNewData] = useState([]);
 
   const logsDataSet = useData(`logs/${params.id}`);
@@ -62,12 +59,6 @@ export function PetLog() {
     }
   }, [logsDataSet.loaded, prescriptionDataSet.loaded]);
 
-  // const [logShow, setLogShow] = useState(true);
-  // const [prscShow, setprscShow] = useState(true);
-
-  // const [toggleLog] = useToggle(logShow, setLogShow);
-  // const [togglePrsc] = useToggle(prscShow, setprscShow);
-
   useEffect(() => {
     combinedData.length > 0 &&
       setNewData(
@@ -91,21 +82,20 @@ export function PetLog() {
 
   return (
     <main>
-      {petName.length > 0 && (
-        <PageHead
-          pageHead={`${petName[0].name}: Health records`}
-          buttonField={
-            <div>
-              <Link to={`/addPrescription/${params.id}`}>
-                <Button primary buttonText={"ADD PRESCRIPTION"} />
-              </Link>
-              <Link to={`/addLog/${params.id}`}>
-                <Button buttonText={"ADD LOG"} />
-              </Link>
-            </div>
-          }
-        />
-      )}
+      <PageHead
+        pageHead={`${myPetName.name}: Health records`}
+        buttonField={
+          <div>
+            <Link to={`/addPrescription/${params.id}`}>
+              <Button primary buttonText={"ADD PRESCRIPTION"} />
+            </Link>
+            <Link to={`/addLog/${params.id}`}>
+              <Button buttonText={"ADD LOG"} />
+            </Link>
+          </div>
+        }
+      />
+
       <SearchField handleInput={handleInput}></SearchField>
       {data.length > 0 && (
         <>
