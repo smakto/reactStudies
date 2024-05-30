@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 export function useData(url) {
   const [dataSet, setNewDataset] = useState([]);
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     async function retrieveData() {
@@ -10,6 +11,7 @@ export function useData(url) {
       );
       const result = await response.json();
       setNewDataset(result);
+      setLoaded(true);
     }
     retrieveData();
   }, [url]);
@@ -33,5 +35,5 @@ export function useData(url) {
     });
   }
 
-  return { dataSet, deleteByID, addData };
+  return { dataSet, loaded, deleteByID, addData };
 }

@@ -9,45 +9,54 @@ import { useName } from "../hooks/getName";
 import { SearchField } from "../components/SearchField";
 import { useSearch } from "../hooks/useSearch";
 
-// function searchFunct(element, inputValue) {
-//   // Logs - description & status;
-//   // Prescriptions - description & name
-//   if ((!element.description && !element.status) || !element.name) {
-//     return false;
-//   }
-//   return (
-//     element.description.toLowerCase().includes(inputValue.toLowerCase()) ||
-//     element.status.toLowerCase().includes(inputValue.toLowerCase()) ||
-//     element.name.toLowerCase().includes(inputValue.toLowerCase())
-//   );
-// }
+function searchFunct(element, inputValue) {
+  if (!element.description && !element.status && !element.name) {
+    return false;
+  }
+
+  if (element.description && element.status) {
+    return (
+      element.description.toLowerCase().includes(inputValue.toLowerCase()) ||
+      element.status.toLowerCase().includes(inputValue.toLowerCase())
+    );
+  } else if (element.description && element.name) {
+    return (
+      element.description.toLowerCase().includes(inputValue.toLowerCase()) ||
+      element.name.toLowerCase().includes(inputValue.toLowerCase())
+    );
+  }
+}
 
 export function PetLog() {
   // const { logsDataSet: dataSet } = useData(`logs/${params.id}`); /// Kaip išsikviesti?
   const params = useParams();
   const { petName } = useName(params.id);
-  const [data, setNewData] = useState([]);
+
+  const [combinedData, setNewData] = useState([]);
 
   const logsDataSet = useData(`logs/${params.id}`);
   const prescriptionDataSet = useData(`prescriptions/${params.id}`);
 
   useEffect(() => {
-    logsDataSet.dataSet.map((items) => {
-      items.type = "log";
-    });
-    prescriptionDataSet.dataSet.map((items) => {
-      items.type = "prescription";
-    });
-  }, [logsDataSet.dataSet, prescriptionDataSet.dataSet]);
-
-  useEffect(() => {
-    mergeArrays();
-  }, []);
-
-  function mergeArrays() {
-    if (prescriptionDataSet.dataSet && logsDataSet.dataSet)
-      setNewData([...prescriptionDataSet.dataSet, ...logsDataSet.dataSet]);
-  }
+    if (logsDataSet.loaded && prescriptionDataSet.loaded) {
+      setNewData([
+        ...prescriptionDataSet.dataSet.map((item) => ({
+          ...item,
+          type: "prescription",
+          hidden: false,
+          localID: Math.random() * 500,
+        })),
+        ...logsDataSet.dataSet.map((item) => {
+          return {
+            ...item,
+            type: "log",
+            hidden: false,
+            localID: Math.random() * 500,
+          };
+        }),
+      ]);
+    }
+  }, [logsDataSet.loaded, prescriptionDataSet.loaded]);
 
   const [logShow, setLogShow] = useState(true);
   const [prscShow, setprscShow] = useState(true);
@@ -56,20 +65,25 @@ export function PetLog() {
   const [togglePrsc] = useToggle(prscShow, setprscShow);
 
   useEffect(() => {
-    if (!logShow && prscShow) {
-      setNewData([...prescriptionDataSet.dataSet]);
-    } else if (logShow && !prscShow) {
-      setNewData([...logsDataSet.dataSet]);
-    } else if (!logShow && !prscShow) {
-      setNewData([]);
-    } else if (logShow && prscShow) {
-      mergeArrays();
-    }
+    combinedData.length > 0 &&
+      setNewData(
+        combinedData.map((item) => {
+          if (item.type === "log") {
+            return {
+              ...item,
+              hidden: logShow ? false : true,
+            };
+          } else if (item.type === "prescription") {
+            return {
+              ...item,
+              hidden: prscShow ? false : true,
+            };
+          }
+        })
+      );
   }, [logShow, prscShow]);
 
-  console.log(logShow, prscShow);
-
-  // const [data, handleInput] = useSearch(dataSet, searchFunct);
+  const [data, handleInput] = useSearch(combinedData, searchFunct);
 
   return (
     <main>
@@ -88,7 +102,7 @@ export function PetLog() {
           }
         />
       )}
-
+      <SearchField handleInput={handleInput}></SearchField>
       {data.length > 0 && (
         <>
           <div className="displayButtons">
@@ -108,17 +122,18 @@ export function PetLog() {
       )}
       <div className="petLogContainer">
         {data.length > 0 &&
-          data.map((items) => {
-            return (
-              <LogCards
-                key={items.id}
-                logType={items.type}
-                description={items.description}
-                name={items.name}
-                status={items.status}
-                timestamp={items.timestamp}
-              />
-            );
+          data.map((item) => {
+            if (!item.hidden)
+              return (
+                <LogCards
+                  key={item.localID}
+                  logType={item.type}
+                  description={item.description}
+                  name={item.name}
+                  status={item.status}
+                  timestamp={item.timestamp}
+                />
+              );
           })}
       </div>
     </main>
@@ -131,12 +146,7 @@ function LogCards({ logType, description, name, status, timestamp }) {
       <h4>{logType === "log" ? description : name}</h4>
       <h4>{logType === "log" ? status : description}</h4>
       {logType === "prescription" && <h5>{timestamp}</h5>}
-      test
+      <h2>{logType}</h2>
     </div>
   );
 }
-
-/// Apjungti data logs ir perscriptions į vieną dataSet.
-/// Kiekvienam dataSet priskirti naują type:log/perscription
-/// Search iš bendro dataSet
-/// ToggleData pagal type
