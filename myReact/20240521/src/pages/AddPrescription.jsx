@@ -9,9 +9,11 @@ export function AddPrescription() {
   const params = useParams("");
   const { addData } = useData(`prescriptions`);
   const { dataSet } = useData(`meds`);
+
   const [comment, setComment] = useState("");
   const [medName, setMedName] = useState("");
   const [medId, setMedId] = useState("");
+
   const navigate = useNavigate();
 
   useEffect(() => {

@@ -8,8 +8,10 @@ import { useNavigate, useParams } from "react-router-dom";
 export function AddLog() {
   const params = useParams("");
   const { addData } = useData(`logs`);
+
   const [descrInput, setDescr] = useState("");
   const [statusInput, setStatus] = useState("");
+
   const navigate = useNavigate();
 
   function handleChange(value, setData) {

@@ -19,6 +19,7 @@ function searchFunct(element, inputValue) {
 
 export function Medications() {
   const { dataSet } = useData("meds?limit=250");
+
   const [filteredData, setNewFilteredData] = useState([]);
   const [data, handleInput] = useSearch(filteredData, searchFunct);
 

@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 export function AddMedication() {
   const { addData } = useData("meds");
   const navigate = useNavigate();
+
   const [nameInput, setName] = useState("");
   const [descrInput, setDescr] = useState("");
 

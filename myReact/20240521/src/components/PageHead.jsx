@@ -1,5 +1,3 @@
-// import Button from "./Button";
-
 import { useThemeContext } from "../contexts/ThemeContext";
 
 const blueStyle = `h1 {
