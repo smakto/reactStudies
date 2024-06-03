@@ -2,6 +2,7 @@ import { createContext, useContext, useReducer } from "react";
 
 const defaultValues = {
   theme: "light",
+  colorScheme: "orange",
 };
 
 const ThemeContext = createContext();
@@ -19,6 +20,21 @@ function reducerActions(state, action) {
       return {
         ...state,
         theme: "light",
+      };
+    case "BLUE":
+      return {
+        ...state,
+        colorScheme: "blue",
+      };
+    case "ORANGE":
+      return {
+        ...state,
+        colorScheme: "orange",
+      };
+    case "RED":
+      return {
+        ...state,
+        colorScheme: "red",
       };
     default:
       return state;

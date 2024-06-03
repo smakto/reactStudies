@@ -21,15 +21,6 @@ header nav {
   align-items: center;
 }
 
-header nav button {
-  margin-right: 75px;
-  background: none;
-  border: none;
-  color: rgb(252, 158, 36);
-  font-weight: bold;
-  font-size: 16px;
-}
-
 header nav button:hover {
   cursor: pointer;
 }

@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 export function AddPet() {
   const { addData } = useData("pets");
   const navigate = useNavigate();
+
   const [nameInput, setName] = useState("");
   const [dateInput, setDate] = useState("");
   const [emailInput, setEmail] = useState("");

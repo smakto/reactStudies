@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Link, useParams } from "react-router-dom";
 import { useData } from "../hooks/useData";
 import { PageHead } from "../components/PageHead";
@@ -28,7 +29,6 @@ function searchFunct(element, inputValue) {
 }
 
 export function PetLog() {
-  // const { logsDataSet: dataSet } = useData(`logs/${params.id}`); /// Kaip išsikviesti?
   const myPetName = usePetNameContext();
   const myLogState = useToggleLogContext();
 
