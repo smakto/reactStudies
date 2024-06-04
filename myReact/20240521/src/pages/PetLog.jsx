@@ -154,47 +154,6 @@ function LogCards({ logType, description, name, status, timestamp }) {
       <h4>{logType === "log" ? description : name}</h4>
       <h4>{logType === "log" ? status : description}</h4>
       {logType === "prescription" && <h5>{timestamp}</h5>}
-      <h2>{logType}</h2>
     </div>
   );
 }
-
-// useEffect(() => {
-//   if (logsDataSet.loaded && prescriptionDataSet.loaded) {
-//     setNewData([
-//       ...prescriptionDataSet.dataSet.map((item) => ({
-//         ...item,
-//         type: "prescription",
-//         hidden: false,
-//         localID: Math.random() * 500,
-//       })),
-//       ...logsDataSet.dataSet.map((item) => {
-//         return {
-//           ...item,
-//           type: "log",
-//           hidden: false,
-//           localID: Math.random() * 500,
-//         };
-//       }),
-//     ]);
-//   }
-// }, [logsDataSet.loaded, prescriptionDataSet.loaded]);
-
-// useEffect(() => {
-//   myGenContext.combinedData.length > 0 &&
-//     setNewData(
-//       myGenContext.combinedData.map((item) => {
-//         if (item.type === "log") {
-//           return {
-//             ...item,
-//             hidden: !myLogState.logs,
-//           };
-//         } else if (item.type === "prescription") {
-//           return {
-//             ...item,
-//             hidden: !myLogState.prescriptions,
-//           };
-//         }
-//       })
-//     );
-// }, [myLogState.logs, myLogState.prescriptions]);

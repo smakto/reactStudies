@@ -46,6 +46,21 @@ function reducerActions(state, action) {
         ...state,
         prescriptionID: action.newPrescriptionID,
       };
+    case "NEWPETNAME":
+      return {
+        ...state,
+        petName: action.newPetName,
+      };
+    case "NEWDOB":
+      return {
+        ...state,
+        petDate: action.newDOB,
+      };
+    case "NEWEMAIL":
+      return {
+        ...state,
+        petOwnerEmail: action.newOwnerEmail,
+      };
     default:
       return state;
   }

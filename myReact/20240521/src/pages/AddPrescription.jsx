@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react";
 import { Button } from "../components/Button";
 import "../styles/petAdd.css";
