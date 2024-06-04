@@ -6,20 +6,23 @@ import { Footer } from "./components/Footer";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { ToggleLogProvider } from "./contexts/ToggleLogContext";
 import { PetNameProvider } from "./contexts/PetNameContext";
+import { GeneralContextProvider } from "./contexts/useContext";
 
 function App() {
   return (
-    <ThemeProvider>
-      <PetNameProvider>
-        <ToggleLogProvider>
-          <main>
-            <Header />
-            <Outlet />
-            <Footer />
-          </main>
-        </ToggleLogProvider>
-      </PetNameProvider>
-    </ThemeProvider>
+    <GeneralContextProvider>
+      <ThemeProvider>
+        <PetNameProvider>
+          <ToggleLogProvider>
+            <main>
+              <Header />
+              <Outlet />
+              <Footer />
+            </main>
+          </ToggleLogProvider>
+        </PetNameProvider>
+      </ThemeProvider>
+    </GeneralContextProvider>
   );
 }
 

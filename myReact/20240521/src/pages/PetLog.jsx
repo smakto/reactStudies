@@ -4,11 +4,12 @@ import { useData } from "../hooks/useData";
 import { PageHead } from "../components/PageHead";
 import "../styles/petLog.css";
 import { Button } from "../components/Button";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { SearchField } from "../components/SearchField";
 import { useSearch } from "../hooks/useSearch";
 import { useToggleLogContext } from "../contexts/ToggleLogContext";
 import { usePetNameContext } from "../contexts/PetNameContext";
+import { useGeneralContext } from "../contexts/useContext";
 
 function searchFunct(element, inputValue) {
   if (!element.description && !element.status && !element.name) {
@@ -31,38 +32,41 @@ function searchFunct(element, inputValue) {
 export function PetLog() {
   const myPetName = usePetNameContext();
   const myLogState = useToggleLogContext();
-
+  const myGenContext = useGeneralContext();
   const params = useParams();
-  const [combinedData, setNewData] = useState([]);
-
   const logsDataSet = useData(`logs/${params.id}`);
   const prescriptionDataSet = useData(`prescriptions/${params.id}`);
+  const [data, handleInput] = useSearch(myGenContext.combinedData, searchFunct);
 
   useEffect(() => {
     if (logsDataSet.loaded && prescriptionDataSet.loaded) {
-      setNewData([
-        ...prescriptionDataSet.dataSet.map((item) => ({
-          ...item,
-          type: "prescription",
-          hidden: false,
-          localID: Math.random() * 500,
-        })),
-        ...logsDataSet.dataSet.map((item) => {
-          return {
+      myGenContext.dispatch({
+        type: "COMBODATA",
+        newComboData: [
+          ...prescriptionDataSet.dataSet.map((item) => ({
             ...item,
-            type: "log",
+            type: "prescription",
             hidden: false,
             localID: Math.random() * 500,
-          };
-        }),
-      ]);
+          })),
+          ...logsDataSet.dataSet.map((item) => {
+            return {
+              ...item,
+              type: "log",
+              hidden: false,
+              localID: Math.random() * 500,
+            };
+          }),
+        ],
+      });
     }
   }, [logsDataSet.loaded, prescriptionDataSet.loaded]);
 
   useEffect(() => {
-    combinedData.length > 0 &&
-      setNewData(
-        combinedData.map((item) => {
+    if (logsDataSet.loaded && prescriptionDataSet.loaded) {
+      myGenContext.dispatch({
+        type: "COMBODATA",
+        newComboData: myGenContext.combinedData.map((item) => {
           if (item.type === "log") {
             return {
               ...item,
@@ -74,11 +78,10 @@ export function PetLog() {
               hidden: !myLogState.prescriptions,
             };
           }
-        })
-      );
+        }),
+      });
+    }
   }, [myLogState.logs, myLogState.prescriptions]);
-
-  const [data, handleInput] = useSearch(combinedData, searchFunct);
 
   return (
     <main>
@@ -125,7 +128,8 @@ export function PetLog() {
         </>
       )}
       <div className="petLogContainer">
-        {data.length > 0 &&
+        {logsDataSet.loaded &&
+          prescriptionDataSet.loaded &&
           data.map((item) => {
             if (!item.hidden)
               return (
@@ -154,3 +158,43 @@ function LogCards({ logType, description, name, status, timestamp }) {
     </div>
   );
 }
+
+// useEffect(() => {
+//   if (logsDataSet.loaded && prescriptionDataSet.loaded) {
+//     setNewData([
+//       ...prescriptionDataSet.dataSet.map((item) => ({
+//         ...item,
+//         type: "prescription",
+//         hidden: false,
+//         localID: Math.random() * 500,
+//       })),
+//       ...logsDataSet.dataSet.map((item) => {
+//         return {
+//           ...item,
+//           type: "log",
+//           hidden: false,
+//           localID: Math.random() * 500,
+//         };
+//       }),
+//     ]);
+//   }
+// }, [logsDataSet.loaded, prescriptionDataSet.loaded]);
+
+// useEffect(() => {
+//   myGenContext.combinedData.length > 0 &&
+//     setNewData(
+//       myGenContext.combinedData.map((item) => {
+//         if (item.type === "log") {
+//           return {
+//             ...item,
+//             hidden: !myLogState.logs,
+//           };
+//         } else if (item.type === "prescription") {
+//           return {
+//             ...item,
+//             hidden: !myLogState.prescriptions,
+//           };
+//         }
+//       })
+//     );
+// }, [myLogState.logs, myLogState.prescriptions]);
