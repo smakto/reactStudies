@@ -3,9 +3,10 @@ import { Button } from "../components/Button";
 import { PageHead } from "../components/PageHead";
 import "../styles/meds.css";
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { SearchField } from "../components/SearchField";
 import { useSearch } from "../hooks/useSearch";
+import { useGeneralContext } from "../contexts/useContext";
 
 function searchFunct(element, inputValue) {
   if (!element.name && !element.description) {
@@ -19,16 +20,16 @@ function searchFunct(element, inputValue) {
 
 export function Medications() {
   const { dataSet } = useData("meds?limit=250");
-
-  const [filteredData, setNewFilteredData] = useState([]);
-  const [data, handleInput] = useSearch(filteredData, searchFunct);
+  const myGenContext = useGeneralContext();
+  const [data, handleInput] = useSearch(myGenContext.filteredData, searchFunct);
 
   useEffect(() => {
-    setNewFilteredData(
-      dataSet.filter(
+    myGenContext.dispatch({
+      type: "FILTERDATA",
+      newFilteredData: dataSet.filter(
         (items) => items.name !== null || items.description !== null
-      )
-    );
+      ),
+    });
   }, [dataSet]);
 
   return (

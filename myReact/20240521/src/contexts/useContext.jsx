@@ -26,7 +26,11 @@ function reducerActions(state, action) {
         ...state,
         combinedData: action.newComboData,
       };
-
+    case "FILTERDATA":
+      return {
+        ...state,
+        filteredData: action.newFilteredData,
+      };
     default:
       return state;
   }
