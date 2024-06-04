@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useData } from "../hooks/useData";
 import { Button } from "../components/Button";
 import { PageHead } from "../components/PageHead";
