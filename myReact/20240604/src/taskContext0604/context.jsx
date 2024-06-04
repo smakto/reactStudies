@@ -1,6 +1,8 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-refresh/only-export-components */
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useMyContext } from "./useContext";
+
 export function getImageUrl(place) {
   return "https://www.estravel.ee/app/uploads/2015/11/Maroko-One-of-the-biggest.webp";
 }
@@ -56,23 +58,30 @@ export const places = [
   },
 ];
 
-export default function App() {
-  const [isLarge, setIsLarge] = useState(false);
-  const imageSize = isLarge ? 150 : 100;
+export default function App2() {
+  const myContext = useMyContext();
+  useEffect(() => {
+    myContext.dispatch({
+      type: myContext.isLarge ? "LARGEIMG" : "NORMALIMG",
+    });
+  }, [myContext.isLarge]);
+
   return (
     <>
       <label>
         <input
           type="checkbox"
-          checked={isLarge}
+          checked={myContext.isLarge}
           onChange={(e) => {
-            setIsLarge(e.target.checked);
+            myContext.dispatch({
+              type: e.target.checked ? "ENLARGE" : "SHRINK",
+            });
           }}
         />
         Use large images
       </label>
       <hr />
-      <List imageSize={imageSize} />
+      <List imageSize={myContext.imageSize} />
     </>
   );
 }
