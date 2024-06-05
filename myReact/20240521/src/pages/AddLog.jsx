@@ -30,8 +30,8 @@ export function AddLog() {
     <div className="addFormWrap">
       <form
         className="addForm"
-        onSubmit={() => {
-          event.preventDefault();
+        onSubmit={(e) => {
+          e.preventDefault();
           createLog();
           navigate(`/logs/${params.id}`);
         }}

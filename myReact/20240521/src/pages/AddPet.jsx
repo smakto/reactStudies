@@ -31,8 +31,6 @@ export function AddPet() {
     });
   }
 
-  console.log({ name: nameInput, dob: dateInput, client_email: emailInput });
-
   return (
     <div className="addFormWrap">
       <form

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 // import { useState } from "react";
 import { Outlet } from "react-router-dom";
 import "./App.css";

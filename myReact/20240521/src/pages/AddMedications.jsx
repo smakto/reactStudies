@@ -27,8 +27,8 @@ export function AddMedication() {
     <div className="addFormWrap">
       <form
         className="addForm"
-        onSubmit={() => {
-          event.preventDefault();
+        onSubmit={(e) => {
+          e.preventDefault();
           createMed();
           navigate("/medications");
         }}

@@ -5,12 +5,7 @@ export function useSearch(initValue, searchFunct) {
   const [myList, setMyList] = useState(initValue);
 
   useEffect(() => {
-    setMyList(
-      initValue.filter((item) =>
-        // item.name.toLowerCase().includes(inputValue.toLowerCase())
-        searchFunct(item, inputValue)
-      )
-    );
+    setMyList(initValue.filter((item) => searchFunct(item, inputValue)));
   }, [searchFunct, initValue, inputValue]);
 
   function setInputEventValue(e) {

@@ -25,6 +25,7 @@ export function AddPrescription() {
 
   function handleChange(value, setData) {
     setData(value);
+    console.log("test");
   }
 
   function createLog() {
@@ -39,7 +40,7 @@ export function AddPrescription() {
     <div className="addFormWrap">
       <form
         className="addForm"
-        onSubmit={() => {
+        onSubmit={(event) => {
           event.preventDefault();
           createLog();
           navigate(`/logs/${params.id}`);

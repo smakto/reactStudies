@@ -17,7 +17,6 @@ const redStyle = `h1 {
 
 export function PageHead({ pageHead, buttonField }) {
   const myState = useThemeContext();
-
   return (
     <div className="pageHead">
       <style>
