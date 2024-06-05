@@ -1,13 +1,13 @@
-export function Input({ label, name, type, handleChange, actionType, action }) {
+export function Input({ label, name, type, handleChange, setData }) {
   return (
     <>
       <label htmlFor={name}>{label}</label>
       <input
         type={type}
         name={name}
-        onChange={(event) => {
+        onChange={() => {
           event.preventDefault();
-          handleChange(event.target.value, actionType, action);
+          handleChange(event.target.value, setData);
         }}
       ></input>
     </>

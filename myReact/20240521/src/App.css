@@ -16,6 +16,10 @@ footer {
   border-top: 1px solid rgb(223, 223, 223);
 }
 
+main {
+  height: 100vh;
+}
+
 .dark {
   background-color: rgb(143, 143, 143);
   color: white;

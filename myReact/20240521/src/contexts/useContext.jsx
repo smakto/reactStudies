@@ -3,16 +3,7 @@ import { createContext, useContext, useReducer } from "react";
 const defaultValues = {
   combinedData: [],
   filteredData: [],
-  prescriptionComment: "prscComment",
-  prescriptionName: "prscName",
-  prescriptionID: 0,
-  petName: "petName",
-  petDate: "petDate",
-  petOwnerEmail: "ownerEmail",
-  medName: "medName",
-  medDescription: "medDescription",
-  logDescription: "logDescription",
-  logStatus: "logStatus",
+  mainRef: "",
 };
 
 const GeneralContext = createContext();
@@ -31,35 +22,10 @@ function reducerActions(state, action) {
         ...state,
         filteredData: action.newFilteredData,
       };
-    case "PRESCRPTIONCOMMENT":
+    case "MAINREF":
       return {
         ...state,
-        prescriptionComment: action.newPrescriptionComment,
-      };
-    case "PRESCRPTIONNAME":
-      return {
-        ...state,
-        prescriptionName: action.newPrescriptionName,
-      };
-    case "PRESCRPTIONID":
-      return {
-        ...state,
-        prescriptionID: action.newPrescriptionID,
-      };
-    case "NEWPETNAME":
-      return {
-        ...state,
-        petName: action.newPetName,
-      };
-    case "NEWDOB":
-      return {
-        ...state,
-        petDate: action.newDOB,
-      };
-    case "NEWEMAIL":
-      return {
-        ...state,
-        petOwnerEmail: action.newOwnerEmail,
+        mainRef: action.newMainRef,
       };
     default:
       return state;

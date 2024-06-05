@@ -1,44 +1,37 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "../components/Button";
 import "../styles/petAdd.css";
 import { useData } from "../hooks/useData";
 import { Input } from "../components/Input";
 import { useNavigate, useParams } from "react-router-dom";
-import { useGeneralContext } from "../contexts/useContext";
 
 export function AddPrescription() {
   const params = useParams("");
   const { addData } = useData(`prescriptions`);
-  const { dataSet, loaded } = useData(`meds`);
-  const myGenContext = useGeneralContext();
+  const { dataSet } = useData(`meds`);
+
+  const [comment, setComment] = useState("");
+  const [medName, setMedName] = useState("");
+  const [medId, setMedId] = useState("");
+
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (loaded && myGenContext.prescriptionName !== "prscName") {
-      let result = dataSet.filter(
-        (item) => item.name === myGenContext.prescriptionName
-      );
-      console.log(result);
-      myGenContext.dispatch({
-        type: "PRESCRPTIONID",
-        newPrescriptionID: result[0].id,
-      });
+    if (medName) {
+      let result = dataSet.find((item) => item.name === medName);
+      setMedId(result.id);
     }
-  }, [loaded, myGenContext.prescriptionName]);
+  }, [medName, dataSet]);
 
-  function handleChange(value, actionType, action) {
-    myGenContext.dispatch({
-      type: actionType,
-      [action]: value,
-    });
+  function handleChange(value, setData) {
+    setData(value);
   }
 
   function createLog() {
     addData({
-      medication_id: myGenContext.prescriptionID,
+      medication_id: medId,
       pet_id: params.id,
-      comment: myGenContext.prescriptionComment,
+      comment: comment,
     });
   }
 
@@ -46,18 +39,15 @@ export function AddPrescription() {
     <div className="addFormWrap">
       <form
         className="addForm"
-        onSubmit={(e) => {
-          e.preventDefault();
+        onSubmit={() => {
+          event.preventDefault();
           createLog();
           navigate(`/logs/${params.id}`);
         }}
       >
         <select
           onChange={(e) => {
-            myGenContext.dispatch({
-              type: "PRESCRPTIONNAME",
-              newPrescriptionName: e.target.value,
-            });
+            setMedName(e.target.value);
           }}
         >
           <option selected disabled>
@@ -73,8 +63,7 @@ export function AddPrescription() {
           name={"logStatus"}
           label={"Comment:"}
           handleChange={handleChange}
-          actionType="PRESCRPTIONCOMMENT"
-          action="newPrescriptionComment"
+          setData={setComment}
         />
         <Button primary type="submit" buttonText={"Add Log"} />
       </form>

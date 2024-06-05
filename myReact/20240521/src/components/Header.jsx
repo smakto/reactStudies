@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import "../styles/header.css";
 import { useThemeContext } from "../contexts/ThemeContext";
 import { useEffect } from "react";
+import { useGeneralContext } from "../contexts/useContext";
 
 const blueStyle = `
   header nav button {
@@ -39,9 +40,13 @@ const redStyle = `
 export function Header() {
   const myState = useThemeContext();
 
+  const myGenContext = useGeneralContext();
+
   useEffect(() => {
-    document.querySelector("body").className = myState.theme;
-  }, [myState]);
+    if (typeof myGenContext.mainRef === "object") {
+      myGenContext.mainRef.current.className = myState.theme;
+    }
+  }, [myGenContext.mainRef.current, myState.theme]);
 
   return (
     <header>

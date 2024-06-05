@@ -11,6 +11,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { AddMedication } from "./pages/AddMedications.jsx";
 import { AddLog } from "./pages/AddLog.jsx";
 import { AddPrescription } from "./pages/AddPrescription.jsx";
+import { GeneralContextProvider } from "./contexts/useContext.jsx";
 
 const router = createBrowserRouter([
   {
@@ -55,6 +56,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <GeneralContextProvider>
+      <RouterProvider router={router} />
+    </GeneralContextProvider>
   </React.StrictMode>
 );

@@ -6,23 +6,32 @@ import { Footer } from "./components/Footer";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { ToggleLogProvider } from "./contexts/ToggleLogContext";
 import { PetNameProvider } from "./contexts/PetNameContext";
-import { GeneralContextProvider } from "./contexts/useContext";
+import { useGeneralContext } from "./contexts/useContext";
+import { useEffect, useRef } from "react";
 
 function App() {
+  const mainRef = useRef();
+  const myContext = useGeneralContext();
+
+  useEffect(() => {
+    myContext.dispatch({
+      type: "MAINREF",
+      newMainRef: mainRef,
+    });
+  }, []);
+
   return (
-    <GeneralContextProvider>
-      <ThemeProvider>
-        <PetNameProvider>
-          <ToggleLogProvider>
-            <main>
-              <Header />
-              <Outlet />
-              <Footer />
-            </main>
-          </ToggleLogProvider>
-        </PetNameProvider>
-      </ThemeProvider>
-    </GeneralContextProvider>
+    <ThemeProvider>
+      <PetNameProvider>
+        <ToggleLogProvider>
+          <main ref={mainRef}>
+            <Header />
+            <Outlet />
+            <Footer />
+          </main>
+        </ToggleLogProvider>
+      </PetNameProvider>
+    </ThemeProvider>
   );
 }
 
